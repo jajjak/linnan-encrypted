@@ -1,0 +1,15 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "services": {
+    "backend": {
+      "sourceRepo": "jajjak/linnan-encrypted",
+      "rootDirectory": "backend",
+      "buildCommand": "npm install && npm run build",
+      "startCommand": "npm start",
+      "variables": {
+        "NODE_ENV": "production",
+        "PORT": "3000"
+      }
+    }
+  }
+}
