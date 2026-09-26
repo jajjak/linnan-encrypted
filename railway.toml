@@ -1,0 +1,22 @@
+[build]
+builder = "nixpacks"
+
+[build.nixpacks]
+# Use Node.js 18 LTS
+nixPackages = ["nodejs_18"]
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+
+[[services]]
+name = "backend"
+rootDirectory = "backend"
+
+[services.build]
+buildCommand = "npm install && npm run build"
+
+[services.variables]
+NODE_ENV = "production"
+PORT = "3000"
