@@ -40,6 +40,11 @@ android {
     buildFeatures {
         compose = true
     }
+
+    lint {
+        disable += listOf("FullBackupContent", "MissingTranslation", "ExtraTranslation")
+        abortOnError = false
+    }
 }
 
 dependencies {

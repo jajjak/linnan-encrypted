@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data-extraction-rules>
-    <domain-config>
-        <domain name="shared_pref" requireUserConfirmation="false">
-            <path name="." />
-        </domain>
-        <domain name="database" requireUserConfirmation="false">
-            <path name="." />
-        </domain>
-    </domain-config>
+    <domain includeSubdomains="true">
+        <path-pattern>/.*</path-pattern>
+    </domain>
 </data-extraction-rules>
