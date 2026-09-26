@@ -34,13 +34,13 @@ jobs:
       run: cd android && gradle assembleRelease
 
     - name: Upload Debug APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: linnan-encrypted-debug
         path: android/app/build/outputs/apk/debug/app-debug.apk
 
     - name: Upload Release APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: linnan-encrypted-release
         path: android/app/build/outputs/apk/release/app-release-unsigned.apk
