@@ -22,3 +22,8 @@ local.properties
 /android/build
 /android/app/build
 /android/.idea
+/android/.settings
+*.iml
+.classpath
+.project
+*.orig
