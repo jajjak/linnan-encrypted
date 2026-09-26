@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: linnan-encrypted-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: |
+      npm install
+      npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: linnan-encrypted-db
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        value: https://linnan-encrypted.onrender.com
+    healthCheckPath: /health
+    routes:
+      - type: http
+        path: /api
+      - type: http
+        path: /health
+
+databases:
+  - name: linnan-encrypted-db
+    plan: free
+    region: oregon
+    databaseName: linnan_encrypted
+    user: linnan_user
