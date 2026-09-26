@@ -1,0 +1,56 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  username  String     @unique
+  email     String     @unique
+  password  String
+  publicKey String     @db.Text
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  sentMessages     Message[] @relation("sender")
+  receivedMessages Message[] @relation("receiver")
+  contacts         Contact[] @relation("from")
+  contactedBy      Contact[] @relation("to")
+
+  @@index([username])
+  @@index([email])
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  fromId    String
+  toId      String
+  from      User     @relation("from", fields: [fromId], references: [id], onDelete: Cascade)
+  to        User     @relation("to", fields: [toId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([fromId, toId])
+  @@index([toId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  senderId  String
+  receiverId String
+  sender    User     @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver  User     @relation("receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  encryptedContent String @db.Text
+  iv               String
+  salt             String
+
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([receiverId])
+  @@index([senderId])
+  @@index([createdAt])
+}
