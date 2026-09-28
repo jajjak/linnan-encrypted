@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.LinnanEncrypted" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- windowBackground is set so the very first frame (before Compose has drawn anything)
+         is already the app's black, not the platform's default light background - avoids a
+         white flash on launch. -->
+    <style name="Theme.LinnanEncrypted" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
 </resources>

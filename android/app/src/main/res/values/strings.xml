@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">林男暗号化</string>
+    <string name="app_name">林男ダウンロード</string>
+    <string name="app_subtitle">LinNan Media Downloader</string>
+
+    <string name="nav_home">ホーム</string>
+    <string name="nav_settings">設定</string>
+
+    <string name="home_url_label">URLを貼り付け</string>
+    <string name="home_url_placeholder">Instagram / YouTube / TikTok / X のリンク</string>
+    <string name="home_analyze_button">解析する</string>
+    <string name="home_analyzing">メディア情報を取得しています…</string>
+    <string name="home_download_button">ダウンロード</string>
+    <string name="home_saving">端末に保存しています…</string>
+    <string name="home_save_success">保存しました: %1$s</string>
+
+    <string name="settings_title">設定</string>
+    <string name="settings_instagram_section">Instagram</string>
+    <string name="settings_login_status_label">ログイン状態</string>
+    <string name="settings_status_logged_in">ログイン済み</string>
+    <string name="settings_status_logged_out">未ログイン</string>
+    <string name="settings_login_button">Instagramにログイン</string>
+    <string name="settings_logout_button">ログアウト</string>
+    <string name="settings_logging_in">認証画面を開いています…</string>
 </resources>

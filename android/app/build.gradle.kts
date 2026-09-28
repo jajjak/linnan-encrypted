@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.compose")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -12,10 +13,22 @@ android {
         applicationId = "com.linnan.encrypted"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 3
+        versionName = "2.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        // OAuth redirect scheme shared by all provider login flows (see AndroidManifest OAuthRedirectActivity).
+        manifestPlaceholders["oauthRedirectScheme"] = "com.linnan.encrypted"
+
+        // Public OAuth client identifiers only (never a client secret). Empty by default;
+        // supply real values via gradle.properties (untracked) or -P project properties
+        // when you register this app with each platform's developer console.
+        buildConfigField("String", "INSTAGRAM_CLIENT_ID", "\"${project.findProperty("INSTAGRAM_CLIENT_ID") ?: ""}\"")
+        buildConfigField("String", "IG_BACKEND_BASE_URL", "\"${project.findProperty("IG_BACKEND_BASE_URL") ?: "https://linnan-encrypted-backend.onrender.com"}\"")
+        buildConfigField("String", "GOOGLE_OAUTH_CLIENT_ID", "\"${project.findProperty("GOOGLE_OAUTH_CLIENT_ID") ?: ""}\"")
+        buildConfigField("String", "TIKTOK_CLIENT_KEY", "\"${project.findProperty("TIKTOK_CLIENT_KEY") ?: ""}\"")
+        buildConfigField("String", "X_CLIENT_ID", "\"${project.findProperty("X_CLIENT_ID") ?: ""}\"")
     }
 
     buildTypes {
@@ -39,6 +52,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     lint {
@@ -57,6 +71,20 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.navigation:navigation-compose:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // Browser-based OAuth (Chrome Custom Tabs) - replaces the black-screen WebView login.
+    implementation("androidx.browser:browser:1.8.0")
+    // Encrypted on-device token storage (no passwords are ever stored, only OAuth tokens).
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    // Networking + JSON for the platform APIs.
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    // Thumbnail previews for detected media.
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
